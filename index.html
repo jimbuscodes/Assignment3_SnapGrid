@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapGrid — Assignment 3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     APP SHELL
+══════════════════════════════════════════ -->
+<div class="app-shell">
+
+    <!-- ── TOP NAV ── -->
+    <nav class="top-nav">
+        <div class="nav-logo">
+            <span class="logo-mark">◈</span>
+            <span class="logo-text">SnapGrid</span>
+        </div>
+        <div class="nav-center">
+            <span class="nav-hint">JavaScript Interactivity — Assignment 3</span>
+        </div>
+        <!-- TASK 1 button lives here -->
+        <button class="theme-toggle-btn" id="themeToggleBtn">
+            <span class="theme-icon" id="themeIcon">🌙</span>
+            <span class="theme-label" id="themeLabel">Dark Mode</span>
+        </button>
+    </nav>
+
+    <!-- ── LAYOUT ── -->
+    <div class="main-layout">
+
+        <!-- ════ LEFT SIDEBAR — Profile ════ -->
+        <aside class="sidebar">
+
+            <!-- Profile Card -->
+            <div class="profile-card">
+                <div class="profile-banner"></div>
+                <div class="profile-avatar-wrap">
+                    <div class="profile-avatar">🧑‍💻</div>
+                </div>
+                <div class="profile-info">
+                    <h2 class="profile-name">Alex Rivera</h2>
+                    <p class="profile-handle">@alexrivera</p>
+                    <p class="profile-bio">Digital media student. Coffee enthusiast. Making things for the web. 🎨</p>
+                </div>
+
+                <!-- Stats row -->
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-num" id="postCount">6</span>
+                        <span class="stat-label">Posts</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num" id="followerCount">1,284</span>
+                        <span class="stat-label">Followers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num">394</span>
+                        <span class="stat-label">Following</span>
+                    </div>
+                </div>
+
+                <!-- TASK 2 follow button -->
+                <button class="follow-btn" id="followBtn">
+                    <span id="followBtnText">➕ Follow</span>
+                </button>
+            </div>
+
+            <!-- Trending Tags (TASK 5 filter pills) -->
+            <div class="sidebar-card">
+                <h3 class="sidebar-card-title">Filter by Tag</h3>
+                <div class="tag-pills" id="tagPills">
+                    <button class="tag-pill active" data-tag="all">All Posts</button>
+                    <button class="tag-pill" data-tag="#design">#design</button>
+                    <button class="tag-pill" data-tag="#webdev">#webdev</button>
+                    <button class="tag-pill" data-tag="#photography">#photography</button>
+                    <button class="tag-pill" data-tag="#dailylife">#dailylife</button>
+                </div>
+                <!-- TASK 5 result count -->
+                <p class="filter-result-msg" id="filterResultMsg">Showing all 6 posts</p>
+            </div>
+
+            <!-- Liked Posts Counter -->
+            <div class="sidebar-card likes-summary-card">
+                <h3 class="sidebar-card-title">❤️ Your Likes</h3>
+                <p class="likes-summary-text">You have liked <strong id="totalLikedCount">0</strong> post(s) on this profile.</p>
+            </div>
+
+        </aside>
+
+        <!-- ════ MAIN FEED ════ -->
+        <main class="feed-area">
+
+            <!-- ── TASK 3 — Post Composer ── -->
+            <div class="composer-card" id="composerCard">
+                <div class="composer-top">
+                    <div class="composer-avatar">🧑‍💻</div>
+                    <textarea
+                        class="composer-textarea"
+                        id="composerTextarea"
+                        placeholder="What's on your mind? Use #hashtags to tag your post…"
+                        maxlength="280"
+                    ></textarea>
+                </div>
+                <div class="composer-bottom">
+                    <span class="char-counter" id="charCounter">280 characters remaining</span>
+                    <button class="post-btn" id="postBtn" disabled>Post</button>
+                </div>
+            </div>
+
+            <!-- ── POST FEED ── -->
+            <div class="post-feed" id="postFeed">
+
+                <!-- Post 1 -->
+                <article class="post-card" data-tags="#design #webdev">
+                    <div class="post-header">
+                        <div class="post-avatar">🧑‍💻</div>
+                        <div class="post-meta">
+                            <span class="post-author">Alex Rivera</span>
+                            <span class="post-time">2 hours ago</span>
+                        </div>
+                    </div>
+                    <p class="post-body">
+                        Just finished redesigning my portfolio site from scratch. Went with a brutalist aesthetic this time — bold typography, raw grid layouts. Honestly the most fun I've had coding in months 🖤 <span class="post-tag">#design</span> <span class="post-tag">#webdev</span>
+                    </p>
+                    <div class="post-image pi-gradient-1">
+                        <span class="pi-label">Portfolio Redesign</span>
+                    </div>
+                    <div class="post-actions">
+                        <button class="like-btn" data-liked="false">
+                            <span class="like-icon">🤍</span>
+                            <span class="like-count">142</span>
+                        </button>
+                        <span class="post-tag-display"><span class="post-tag">#design</span> <span class="post-tag">#webdev</span></span>
+                    </div>
+                </article>
+
+                <!-- Post 2 -->
+                <article class="post-card" data-tags="#photography #dailylife">
+                    <div class="post-header">
+                        <div class="post-avatar">🧑‍💻</div>
+                        <div class="post-meta">
+                            <span class="post-author">Alex Rivera</span>
+                            <span class="post-time">Yesterday</span>
+                        </div>
+                    </div>
+                    <p class="post-body">
+                        Golden hour hits different when you're shooting on film. Decided to blow the dust off my grandfather's old camera. Every shot is a commitment — no deleting, no filters. <span class="post-tag">#photography</span> <span class="post-tag">#dailylife</span>
+                    </p>
+                    <div class="post-image pi-gradient-2">
+                        <span class="pi-label">Film Photography 📸</span>
+                    </div>
+                    <div class="post-actions">
+                        <button class="like-btn" data-liked="false">
+                            <span class="like-icon">🤍</span>
+                            <span class="like-count">98</span>
+                        </button>
+                        <span class="post-tag-display"><span class="post-tag">#photography</span> <span class="post-tag">#dailylife</span></span>
+                    </div>
+                </article>
+
+                <!-- Post 3 -->
+                <article class="post-card" data-tags="#webdev">
+                    <div class="post-header">
+                        <div class="post-avatar">🧑‍💻</div>
+                        <div class="post-meta">
+                            <span class="post-author">Alex Rivera</span>
+                            <span class="post-time">2 days ago</span>
+                        </div>
+                    </div>
+                    <p class="post-body">
+                        CSS Grid saved my life today. Built a full responsive layout in like 30 lines. If you're still fighting floats and clearfixes in 2025 please let me help you 😅 <span class="post-tag">#webdev</span>
+                    </p>
+                    <div class="post-actions">
+                        <button class="like-btn" data-liked="false">
+                            <span class="like-icon">🤍</span>
+                            <span class="like-count">213</span>
+                        </button>
+                        <span class="post-tag-display"><span class="post-tag">#webdev</span></span>
+                    </div>
+                </article>
+
+                <!-- Post 4 -->
+                <article class="post-card" data-tags="#design #photography">
+                    <div class="post-header">
+                        <div class="post-avatar">🧑‍💻</div>
+                        <div class="post-meta">
+                            <span class="post-author">Alex Rivera</span>
+                            <span class="post-time">3 days ago</span>
+                        </div>
+                    </div>
+                    <p class="post-body">
+                        Color theory is genuinely fascinating. Spent an hour just generating color palettes today. There's something meditative about finding combinations that just *feel* right. <span class="post-tag">#design</span> <span class="post-tag">#photography</span>
+                    </p>
+                    <div class="post-image pi-gradient-3">
+                        <span class="pi-label">Color Exploration 🎨</span>
+                    </div>
+                    <div class="post-actions">
+                        <button class="like-btn" data-liked="false">
+                            <span class="like-icon">🤍</span>
+                            <span class="like-count">77</span>
+                        </button>
+                        <span class="post-tag-display"><span class="post-tag">#design</span> <span class="post-tag">#photography</span></span>
+                    </div>
+                </article>
+
+                <!-- Post 5 -->
+                <article class="post-card" data-tags="#dailylife">
+                    <div class="post-header">
+                        <div class="post-avatar">🧑‍💻</div>
+                        <div class="post-meta">
+                            <span class="post-author">Alex Rivera</span>
+                            <span class="post-time">4 days ago</span>
+                        </div>
+                    </div>
+                    <p class="post-body">
+                        There is something uniquely chaotic about doing all-nighters in a library that closes at midnight. Anyway, the assignment is submitted and the coffee is gone. Good night everyone ☕ <span class="post-tag">#dailylife</span>
+                    </p>
+                    <div class="post-actions">
+                        <button class="like-btn" data-liked="false">
+                            <span class="like-icon">🤍</span>
+                            <span class="like-count">311</span>
+                        </button>
+                        <span class="post-tag-display"><span class="post-tag">#dailylife</span></span>
+                    </div>
+                </article>
+
+                <!-- Post 6 -->
+                <article class="post-card" data-tags="#design #webdev">
+                    <div class="post-header">
+                        <div class="post-avatar">🧑‍💻</div>
+                        <div class="post-meta">
+                            <span class="post-author">Alex Rivera</span>
+                            <span class="post-time">5 days ago</span>
+                        </div>
+                    </div>
+                    <p class="post-body">
+                        Typography tip nobody asked for: stop using two different sans-serifs in the same design. Pick one. Pair it with a serif or a mono. Your layouts will instantly look more intentional ✨ <span class="post-tag">#design</span> <span class="post-tag">#webdev</span>
+                    </p>
+                    <div class="post-actions">
+                        <button class="like-btn" data-liked="false">
+                            <span class="like-icon">🤍</span>
+                            <span class="like-count">189</span>
+                        </button>
+                        <span class="post-tag-display"><span class="post-tag">#design</span> <span class="post-tag">#webdev</span></span>
+                    </div>
+                </article>
+
+            </div><!-- /postFeed -->
+
+        </main>
+
+    </div><!-- /main-layout -->
+
+</div><!-- /app-shell -->
+
+
+<!-- ══════════════════════════════════════════
+     ASSIGNMENT PANEL
+══════════════════════════════════════════ -->
+<div class="assignment-panel">
+    <div class="assignment-inner">
+
+        <div class="asgn-header">
+            <div class="asgn-header-left">
+                <div class="asgn-badges">
+                    <span class="abadge purple">JavaScript Interactivity</span>
+                    <span class="abadge teal">Assignment 3</span>
+                    <span class="abadge gold">20 Points</span>
+                </div>
+                <h1 class="asgn-title">SnapGrid — Social Media Profile Dashboard</h1>
+                <p class="asgn-desc">
+                    You're a front-end developer at <strong>SnapGrid</strong>, a new social media startup. The designers have handed you a fully built profile page — but nothing works yet. Your job is to wire up all the interactivity using JavaScript DOM manipulation and event handling.
+                </p>
+                <div class="asgn-files">
+                    <span class="file-chip">📄 index.html <em>provided — don't modify</em></span>
+                    <span class="file-chip">🎨 styles.css <em>provided — don't modify</em></span>
+                    <span class="file-chip">✏️ solutions.js <em>write your code here</em></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── TASKS ── -->
+        <div class="tasks-grid">
+
+            <!-- Task 1 -->
+            <div class="task-card">
+                <div class="task-head">
+                    <span class="task-badge">Task 1</span>
+                    <div class="task-title-row">
+                        <h3>Dark / Light Mode Toggle</h3>
+                        <span class="pts-chip">3 pts</span>
+                    </div>
+                </div>
+                <div class="task-body">
+                    <p>Wire up the <strong>Dark / Light Mode</strong> button in the top navigation bar so it switches the whole app's theme each time it is clicked.</p>
+                    <ul>
+                        <li>Select the button <code>#themeToggleBtn</code>, its icon <code>#themeIcon</code>, and its label <code>#themeLabel</code></li>
+                        <li>Declare a boolean: <code>let isDark = true</code></li>
+                        <li>Add a <code>click</code> event listener to the button</li>
+                        <li>Inside the listener, flip <code>isDark</code> with <code>!isDark</code>, then:
+                            <ul>
+                                <li>Use <code>document.documentElement.setAttribute('data-theme', ...)</code> — set to <code>"light"</code> or <code>"dark"</code></li>
+                                <li><strong>Light mode:</strong> set <code>#themeIcon</code> text to <code>"☀️"</code> and <code>#themeLabel</code> text to <code>"Light Mode"</code></li>
+                                <li><strong>Dark mode:</strong> set them back to <code>"🌙"</code> and <code>"Dark Mode"</code></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="hint-box">💡 <strong>Hint:</strong> <code>document.documentElement</code> refers to the <code>&lt;html&gt;</code> element — the <code>data-theme</code> attribute on it controls all CSS variables for both themes.</div>
+                </div>
+            </div>
+
+            <!-- Task 2 -->
+            <div class="task-card">
+                <div class="task-head">
+                    <span class="task-badge">Task 2</span>
+                    <div class="task-title-row">
+                        <h3>Follow / Unfollow with Live Counter</h3>
+                        <span class="pts-chip">4 pts</span>
+                    </div>
+                </div>
+                <div class="task-body">
+                    <p>Make the <strong>Follow button</strong> in the profile card toggle between following and not following — and update the follower count live.</p>
+                    <ul>
+                        <li>Select <code>#followBtn</code>, <code>#followBtnText</code>, and <code>#followerCount</code></li>
+                        <li>Declare: <code>let isFollowing = false</code> and <code>let followers = 1284</code></li>
+                        <li>Add a <code>click</code> listener to <code>#followBtn</code></li>
+                        <li>Flip <code>isFollowing</code> each click, then:
+                            <ul>
+                                <li><strong>Now following:</strong> increment <code>followers</code> by 1, set button text to <code>"✅ Following"</code>, add class <code>following</code> to <code>#followBtn</code></li>
+                                <li><strong>Unfollowed:</strong> decrement <code>followers</code> by 1, set text to <code>"➕ Follow"</code>, remove class <code>following</code></li>
+                                <li>In both cases, update <code>#followerCount.textContent</code> to the new <code>followers</code> value formatted with <code>toLocaleString()</code></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="hint-box">💡 <strong>Hint:</strong> <code>toLocaleString()</code> on a number automatically adds comma separators — so <code>(1285).toLocaleString()</code> gives <code>"1,285"</code>. Try it in the console!</div>
+                </div>
+            </div>
+
+            <!-- Task 3 -->
+            <div class="task-card task-card-featured">
+                <div class="task-head">
+                    <span class="task-badge">Task 3</span>
+                    <div class="task-title-row">
+                        <h3>Live Post Composer</h3>
+                        <span class="pts-chip">5 pts</span>
+                    </div>
+                </div>
+                <div class="task-body">
+                    <p>Bring the <strong>post composer</strong> (text box at the top of the feed) to life. It should count characters in real time and dynamically create a new post card when submitted.</p>
+                    <ul>
+                        <li>Select <code>#composerTextarea</code>, <code>#charCounter</code>, <code>#postBtn</code>, <code>#postFeed</code>, and <code>#postCount</code></li>
+                        <li>Add an <code>input</code> event listener to <code>#composerTextarea</code>:
+                            <ul>
+                                <li>Calculate remaining characters: <code>280 - textarea.value.length</code></li>
+                                <li>Update <code>#charCounter</code> text to <code>"X characters remaining"</code></li>
+                                <li>If remaining &lt; 20, add class <code>counter-warning</code> to <code>#charCounter</code>; otherwise remove it</li>
+                                <li>Enable <code>#postBtn</code> if the trimmed value is not empty; otherwise keep it disabled</li>
+                            </ul>
+                        </li>
+                        <li>Add a <code>click</code> listener to <code>#postBtn</code>:
+                            <ul>
+                                <li>Get the text from <code>textarea.value.trim()</code></li>
+                                <li>Create a new <code>&lt;article&gt;</code> element with class <code>post-card new-post</code></li>
+                                <li>Set its <code>data-tags</code> attribute to any hashtags found in the text (you can leave this as an empty string for now)</li>
+                                <li>Set its <code>innerHTML</code> to the post card template shown below</li>
+                                <li>Use <code>postFeed.prepend(newPost)</code> to add it at the <strong>top</strong> of the feed</li>
+                                <li>Reset <code>textarea.value</code> to <code>""</code>, reset <code>#charCounter</code> to <code>"280 characters remaining"</code>, remove <code>counter-warning</code>, disable <code>#postBtn</code></li>
+                                <li>Increment and update <code>#postCount</code></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <div class="template-box">
+                        <p class="template-label">📋 New Post Card Template (use inside innerHTML):</p>
+                        <pre class="code-block">&lt;div class="post-header"&gt;
+  &lt;div class="post-avatar"&gt;🧑‍💻&lt;/div&gt;
+  &lt;div class="post-meta"&gt;
+    &lt;span class="post-author"&gt;Alex Rivera&lt;/span&gt;
+    &lt;span class="post-time"&gt;Just now&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p class="post-body"&gt;${postText}&lt;/p&gt;
+&lt;div class="post-actions"&gt;
+  &lt;button class="like-btn" data-liked="false"&gt;
+    &lt;span class="like-icon"&gt;🤍&lt;/span&gt;
+    &lt;span class="like-count"&gt;0&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</pre>
+                    </div>
+
+                    <div class="hint-box">💡 <strong>Hint:</strong> Use a template literal (backtick string) for the <code>innerHTML</code>. After creating the new post, call <code>attachLikeListeners()</code> (from Task 4) so the new post's heart button works too!</div>
+                </div>
+            </div>
+
+            <!-- Task 4 -->
+            <div class="task-card">
+                <div class="task-head">
+                    <span class="task-badge">Task 4</span>
+                    <div class="task-title-row">
+                        <h3>Like / Unlike Posts</h3>
+                        <span class="pts-chip">4 pts</span>
+                    </div>
+                </div>
+                <div class="task-body">
+                    <p>Make the <strong>heart button</strong> on every post card toggle between liked and not liked, update the like count, and keep a running total in the sidebar.</p>
+                    <ul>
+                        <li>Write a <strong>named function</strong> <code>attachLikeListeners()</code> (Task 3 needs to call it after adding new posts)</li>
+                        <li>Inside <code>attachLikeListeners()</code>, select all <code>.like-btn</code> elements and loop through them with <code>forEach</code></li>
+                        <li>For each button, <strong>replace</strong> any old listener by cloning: <code>const fresh = btn.cloneNode(true); btn.parentNode.replaceChild(fresh, btn);</code></li>
+                        <li>Add a <code>click</code> listener to the cloned <code>fresh</code> button:
+                            <ul>
+                                <li>Read the current liked state: <code>fresh.getAttribute('data-liked') === 'true'</code></li>
+                                <li>Toggle: if liked → set <code>data-liked="false"</code>, subtract 1 from count, set icon to <code>"🤍"</code>, remove class <code>liked</code></li>
+                                <li>If not liked → set <code>data-liked="true"</code>, add 1 to count, set icon to <code>"❤️"</code>, add class <code>liked</code></li>
+                                <li>Update <code>.like-count</code> span inside the button with the new number</li>
+                                <li>After toggling, call <code>updateTotalLikes()</code></li>
+                            </ul>
+                        </li>
+                        <li>Write a second function <code>updateTotalLikes()</code>:
+                            <ul>
+                                <li>Count all <code>.like-btn[data-liked="true"]</code> elements</li>
+                                <li>Update <code>#totalLikedCount</code> with that number</li>
+                            </ul>
+                        </li>
+                        <li>Call <code>attachLikeListeners()</code> once at the bottom of your file to wire up the initial posts</li>
+                    </ul>
+                    <div class="hint-box">💡 <strong>Hint:</strong> The clone trick (<code>cloneNode</code> + <code>replaceChild</code>) removes all old event listeners from a button before adding a new one — this prevents a button from firing the same action multiple times if <code>attachLikeListeners()</code> is called more than once.</div>
+                </div>
+            </div>
+
+            <!-- Task 5 -->
+            <div class="task-card">
+                <div class="task-head">
+                    <span class="task-badge">Task 5</span>
+                    <div class="task-title-row">
+                        <h3>Hashtag Filter</h3>
+                        <span class="pts-chip">4 pts</span>
+                    </div>
+                </div>
+                <div class="task-body">
+                    <p>Make the <strong>tag pills</strong> in the sidebar filter the post feed — clicking a tag shows only posts that include that hashtag.</p>
+                    <ul>
+                        <li>Select all <code>.tag-pill</code> elements and <code>#filterResultMsg</code></li>
+                        <li>Loop through the pills with <code>forEach</code> and add a <code>click</code> listener to each</li>
+                        <li>Inside the listener:
+                            <ul>
+                                <li>Remove class <code>active</code> from every pill, then add it to the clicked pill only</li>
+                                <li>Read the filter value: <code>const tag = pill.getAttribute('data-tag')</code></li>
+                                <li>Select all <code>.post-card</code> elements in <code>#postFeed</code></li>
+                                <li>Loop through posts:
+                                    <ul>
+                                        <li>If <code>tag === "all"</code>, remove class <code>hidden</code> from every post</li>
+                                        <li>Otherwise, check if the post's <code>data-tags</code> attribute <code>includes(tag)</code>:
+                                            <ul>
+                                                <li>If yes → remove class <code>hidden</code></li>
+                                                <li>If no → add class <code>hidden</code></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>Count visible posts: filter the posts array where <code>!post.classList.contains('hidden')</code></li>
+                                <li>Update <code>#filterResultMsg</code>:
+                                    <ul>
+                                        <li>If tag is <code>"all"</code>: <code>"Showing all X posts"</code></li>
+                                        <li>Otherwise: <code>"X post(s) tagged ${tag}"</code></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="hint-box">💡 <strong>Hint:</strong> <code>querySelectorAll()</code> returns a <strong>NodeList</strong>, not an array. Use <code>Array.from(document.querySelectorAll('.post-card'))</code> to convert it so you can use <code>.filter()</code> and <code>.length</code> on it easily.</div>
+                </div>
+            </div>
+
+        </div><!-- /tasks-grid -->
+
+
+        <!-- ── RUBRIC ── -->
+        <div class="rubric-wrap">
+            <h2 class="rubric-title">◈ Grading Rubric</h2>
+            <table class="rubric-table">
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Pts</th>
+                        <th>What We're Looking For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Task 1 — Theme Toggle</strong></td>
+                        <td>3</td>
+                        <td>Boolean state used, <code>data-theme</code> attribute updated correctly, icon + label change both ways</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Task 2 — Follow Counter</strong></td>
+                        <td>4</td>
+                        <td>Follow/unfollow toggle works, count increments <em>and</em> decrements, <code>toLocaleString()</code> used, class added/removed</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Task 3 — Post Composer</strong></td>
+                        <td>5</td>
+                        <td><code>input</code> event used for counter, warning class applied at &lt;20, post button enables/disables, new card created with <code>createElement</code> &amp; <code>prepend</code>, post count updated, form reset after submit</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Task 4 — Like / Unlike</strong></td>
+                        <td>4</td>
+                        <td>Named function defined, clone technique used to prevent duplicate listeners, count updates correctly, sidebar total accurate</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Task 5 — Hashtag Filter</strong></td>
+                        <td>4</td>
+                        <td>Active pill updates correctly, posts hidden/shown using <code>includes()</code>, result message accurate, works on dynamically added posts</td>
+                    </tr>
+                    <tr class="rubric-total">
+                        <td colspan="2"><strong>Total</strong></td>
+                        <td><strong>20 Points</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ── FOOTER ── -->
+        <div class="asgn-footer">
+            <p>📁 <strong>Submit both files on Canvas:</strong> <code>index.html</code> and <code>solutions.js</code> — do not submit <code>styles.css</code></p>
+            <p>⚠️ <strong>Academic Integrity:</strong> All code must be your own work. Do not use AI tools or copy solutions from other students.</p>
+        </div>
+
+    </div><!-- /assignment-inner -->
+</div><!-- /assignment-panel -->
+
+<script src="solutions.js"></script>
+</body>
+</html>
